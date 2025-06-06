@@ -13,9 +13,9 @@
 
         <form @submit.prevent="submit">
             <div>
-                <NordInputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email" />
 
-                <NordTextInput
+                <TextInput
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -25,13 +25,13 @@
                     autocomplete="username"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <NordPrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Email Password Reset Link
-                </NordPrimaryButton>
+                </PrimaryButton>
             </div>
         </form>
     </GuestLayout>
@@ -39,10 +39,10 @@
 
 <script>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import NordInputError from '@/Components/NordInputError.vue';
-import NordInputLabel from '@/Components/NordInputLabel.vue';
-import NordPrimaryButton from '@/Components/NordPrimaryButton.vue';
-import NordTextInput from '@/Components/NordTextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
 import { Head } from '@inertiajs/vue3';
 
 export default {
@@ -50,10 +50,10 @@ export default {
     components: {
         GuestLayout,
         Head,
-        NordInputError,
-        NordInputLabel,
-        NordPrimaryButton,
-        NordTextInput,
+        InputError,
+        InputLabel,
+        PrimaryButton,
+        TextInput,
     },
     props: {
         status: {
@@ -89,4 +89,3 @@ export default {
     },
 };
 </script>
-

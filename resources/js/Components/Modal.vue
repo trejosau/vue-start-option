@@ -48,7 +48,7 @@
 
 <script>
 export default {
-    name: 'NordModal',
+    name: 'Modal',
     props: {
         show: {
             type: Boolean,

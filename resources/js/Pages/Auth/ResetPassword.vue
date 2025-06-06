@@ -5,9 +5,9 @@
         <form @submit.prevent="submit">
             <!-- Email Field -->
             <div>
-                <NordInputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email" />
 
-                <NordTextInput
+                <TextInput
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -17,14 +17,14 @@
                     autocomplete="username"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <!-- Password Field -->
             <div class="mt-4">
-                <NordInputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Password" />
 
-                <NordTextInput
+                <TextInput
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
@@ -33,14 +33,14 @@
                     autocomplete="new-password"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
             <!-- Confirm Password Field -->
             <div class="mt-4">
-                <NordInputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="Confirm Password" />
 
-                <NordTextInput
+                <TextInput
                     id="password_confirmation"
                     type="password"
                     class="mt-1 block w-full"
@@ -49,7 +49,7 @@
                     autocomplete="new-password"
                 />
 
-                <NordInputError
+                <InputError
                     class="mt-2"
                     :message="form.errors.password_confirmation"
                 />
@@ -57,12 +57,12 @@
 
             <!-- Actions -->
             <div class="flex items-center justify-end mt-4">
-                <NordPrimaryButton
+                <PrimaryButton
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Reset Password
-                </NordPrimaryButton>
+                </PrimaryButton>
             </div>
         </form>
     </GuestLayout>
@@ -70,10 +70,10 @@
 
 <script>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import NordInputError from '@/Components/NordInputError.vue';
-import NordInputLabel from '@/Components/NordInputLabel.vue';
-import NordPrimaryButton from '@/Components/NordPrimaryButton.vue';
-import NordTextInput from '@/Components/NordTextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
 import { Head } from '@inertiajs/vue3';
 
 export default {
@@ -81,10 +81,10 @@ export default {
     components: {
         GuestLayout,
         Head,
-        NordInputError,
-        NordInputLabel,
-        NordPrimaryButton,
-        NordTextInput,
+        InputError,
+        InputLabel,
+        PrimaryButton,
+        TextInput,
     },
     props: {
         email: {

@@ -1,13 +1,35 @@
+<script setup>
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+
+const form = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+    terms: false,
+});
+
+const submit = () => {
+    form.post(route('register'), {
+        onFinish: () => form.reset('password', 'password_confirmation'),
+    });
+};
+</script>
+
 <template>
     <GuestLayout>
-        <Head :title="'Register'" />
+        <Head title="Register" />
 
         <form @submit.prevent="submit">
-            <!-- Name Field -->
             <div>
-                <NordInputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Name" />
 
-                <NordTextInput
+                <TextInput
                     id="name"
                     type="text"
                     class="mt-1 block w-full"
@@ -17,14 +39,13 @@
                     autocomplete="name"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
-            <!-- Email Field -->
             <div class="mt-4">
-                <NordInputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email" />
 
-                <NordTextInput
+                <TextInput
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -33,14 +54,13 @@
                     autocomplete="username"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <!-- Password Field -->
             <div class="mt-4">
-                <NordInputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Password" />
 
-                <NordTextInput
+                <TextInput
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
@@ -49,14 +69,13 @@
                     autocomplete="new-password"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <!-- Confirm Password Field -->
             <div class="mt-4">
-                <NordInputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="Confirm Password" />
 
-                <NordTextInput
+                <TextInput
                     id="password_confirmation"
                     type="password"
                     class="mt-1 block w-full"
@@ -65,84 +84,21 @@
                     autocomplete="new-password"
                 />
 
-                <NordInputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
+                <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
-            <!-- Actions -->
             <div class="flex items-center justify-end mt-4">
-                <NordNavLink
+                <Link
                     :href="route('login')"
-                    class="underline text-sm text-ice hover:text-teal rounded-md focus:outline-none focus:ring-2 focus:ring-ice focus:ring-offset-2"
+                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Already registered?
-                </NordNavLink>
+                </Link>
 
-                <NordPrimaryButton
-                    class="ml-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
+                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Register
-                </NordPrimaryButton>
+                </PrimaryButton>
             </div>
         </form>
     </GuestLayout>
 </template>
-
-<script>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import NordInputError from '@/Components/NordInputError.vue';
-import NordInputLabel from '@/Components/NordInputLabel.vue';
-import NordNavLink from '@/Components/NordNavLink.vue';
-import NordPrimaryButton from '@/Components/NordPrimaryButton.vue';
-import NordTextInput from '@/Components/NordTextInput.vue';
-import { Head } from '@inertiajs/vue3';
-
-export default {
-    name: 'Register',
-    components: {
-        GuestLayout,
-        Head,
-        NordInputError,
-        NordInputLabel,
-        NordNavLink,
-        NordPrimaryButton,
-        NordTextInput,
-    },
-    data() {
-        return {
-            form: {
-                name: '',
-                email: '',
-                password: '',
-                password_confirmation: '',
-                errors: {},
-                processing: false,
-            },
-        };
-    },
-    methods: {
-        async submit() {
-            this.form.processing = true;
-            this.form.errors = {};
-
-            try {
-                await this.$inertia.post(route('register'), {
-                    name: this.form.name,
-                    email: this.form.email,
-                    password: this.form.password,
-                    password_confirmation: this.form.password_confirmation,
-                });
-            } catch (error) {
-                const serverErrors = this.$page.props.value.errors || {};
-                this.form.errors = serverErrors;
-            } finally {
-                this.form.processing = false;
-            }
-        },
-    },
-};
-</script>

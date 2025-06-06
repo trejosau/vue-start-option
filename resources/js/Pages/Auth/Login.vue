@@ -7,11 +7,10 @@
         </div>
 
         <form @submit.prevent="submit">
-            <!-- Email Field -->
             <div>
-                <NordInputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email" />
 
-                <NordTextInput
+                <TextInput
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -21,14 +20,14 @@
                     autocomplete="username"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <!-- Password Field -->
             <div class="mt-4">
-                <NordInputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Password" />
 
-                <NordTextInput
+                <TextInput
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
@@ -37,43 +36,43 @@
                     autocomplete="current-password"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
             <!-- Remember Me Checkbox -->
             <div class="block mt-4">
                 <label class="flex items-center">
-                    <NordCheckbox name="remember" v-model:checked="form.remember" />
+                    <Checkbox name="remember" v-model:checked="form.remember" />
                     <span class="ml-2 text-sm text-fg">Remember me</span>
                 </label>
             </div>
 
             <!-- Actions -->
             <div class="flex items-center justify-end mt-4">
-                <NordNavLink
+                <NavLink
                     v-if="canResetPassword"
                     :href="route('password.request')"
                     class="underline text-sm text-ice hover:text-teal rounded-md focus:outline-none focus:ring-2 focus:ring-ice focus:ring-offset-2"
                 >
                     Forgot your password?
-                </NordNavLink>
+                </NavLink>
 
-                <NordPrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
-                </NordPrimaryButton>
+                </PrimaryButton>
             </div>
         </form>
     </GuestLayout>
 </template>
 
 <script>
-import NordCheckbox from '@/Components/NordCheckbox.vue';
+import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import NordInputError from '@/Components/NordInputError.vue';
-import NordInputLabel from '@/Components/NordInputLabel.vue';
-import NordNavLink from '@/Components/NordNavLink.vue';
-import NordPrimaryButton from '@/Components/NordPrimaryButton.vue';
-import NordTextInput from '@/Components/NordTextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import NavLink from '@/Components/NavLink.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
 import { Head } from '@inertiajs/vue3';
 
 export default {
@@ -81,12 +80,12 @@ export default {
     components: {
         GuestLayout,
         Head,
-        NordCheckbox,
-        NordInputError,
-        NordInputLabel,
-        NordNavLink,
-        NordPrimaryButton,
-        NordTextInput,
+        Checkbox,
+        InputError,
+        InputLabel,
+        NavLink,
+        PrimaryButton,
+        TextInput,
     },
     props: {
         canResetPassword: {
@@ -130,4 +129,3 @@ export default {
     },
 };
 </script>
-

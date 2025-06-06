@@ -42,7 +42,7 @@
 
 <script>
 export default {
-    name: 'NordDropdown',
+    name: 'Dropdown',
     props: {
         align: {
             type: String,

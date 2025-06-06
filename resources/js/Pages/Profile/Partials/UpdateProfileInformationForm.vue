@@ -10,9 +10,9 @@
         <form @submit.prevent="submit" class="mt-6 space-y-6">
             <!-- Name Field -->
             <div>
-                <NordInputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Name" />
 
-                <NordTextInput
+                <TextInput
                     id="name"
                     type="text"
                     class="mt-1 block w-full"
@@ -22,14 +22,14 @@
                     autocomplete="name"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
             <!-- Email Field -->
             <div>
-                <NordInputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email" />
 
-                <NordTextInput
+                <TextInput
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -38,21 +38,21 @@
                     autocomplete="username"
                 />
 
-                <NordInputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <!-- Unverified Email Notice -->
             <div v-if="mustVerifyEmail && !user.email_verified_at">
                 <p class="text-sm mt-2 text-grayLight">
                     Your email address is unverified.
-                    <NordNavLink
+                    <NavLink
                         :href="route('verification.send')"
                         method="post"
                         as="button"
                         class="underline text-sm text-ice hover:text-teal rounded-md focus:outline-none focus:ring-2 focus:ring-ice focus:ring-offset-2"
                     >
                         Click here to re-send the verification email.
-                    </NordNavLink>
+                    </NavLink>
                 </p>
 
                 <div
@@ -65,7 +65,7 @@
 
             <!-- Actions -->
             <div class="flex items-center gap-4">
-                <NordPrimaryButton :disabled="form.processing">Save</NordPrimaryButton>
+                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
                 <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
                     <p v-if="form.recentlySuccessful" class="text-sm text-grayLight">Saved.</p>
@@ -77,21 +77,20 @@
 
 <script>
 import { usePage } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import NordInputError from '@/Components/NordInputError.vue';
-import NordInputLabel from '@/Components/NordInputLabel.vue';
-import NordNavLink from '@/Components/NordNavLink.vue';
-import NordPrimaryButton from '@/Components/NordPrimaryButton.vue';
-import NordTextInput from '@/Components/NordTextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import NavLink from '@/Components/NavLink.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
 
 export default {
-    name: 'UpdateProfile',
+    name: 'UpdateProfileInformationForm',
     components: {
-        NordInputError,
-        NordInputLabel,
-        NordNavLink,
-        NordPrimaryButton,
-        NordTextInput,
+        InputError,
+        InputLabel,
+        NavLink,
+        PrimaryButton,
+        TextInput,
     },
     props: {
         mustVerifyEmail: {
@@ -120,7 +119,6 @@ export default {
 
             try {
                 await this.form.patch(route('profile.update'));
-            } catch (error) {
             } finally {
                 this.form.processing = false;
             }
@@ -128,4 +126,3 @@ export default {
     },
 };
 </script>
-

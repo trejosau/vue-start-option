@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    name: 'NordTextInput',
+    name: 'TextInput',
     props: {
         modelValue: {
             type: String,

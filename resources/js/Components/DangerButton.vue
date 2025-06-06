@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    name: 'NordButton',
+    name: 'Button',
     props: {
         type: {
             type: String,

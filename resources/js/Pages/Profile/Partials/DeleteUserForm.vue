@@ -9,9 +9,9 @@
             </p>
         </header>
 
-        <NordDangerButton @click="confirmUserDeletion">Delete Account</NordDangerButton>
+        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
 
-        <NordModal :show="confirmingUserDeletion" @close="closeModal">
+        <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6 bg-grayMedium rounded-lg">
                 <h2 class="text-lg font-medium text-fg">
                     Are you sure you want to delete your account?
@@ -23,9 +23,9 @@
                 </p>
 
                 <div class="mt-6">
-                    <NordInputLabel for="password" value="Password" class="sr-only" />
+                    <InputLabel for="password" value="Password" class="sr-only" />
 
-                    <NordTextInput
+                    <TextInput
                         id="password"
                         ref="passwordInput"
                         v-model="form.password"
@@ -35,45 +35,43 @@
                         @keyup.enter="deleteUser"
                     />
 
-                    <NordInputError :message="form.errors.password" class="mt-2" />
+                    <InputError :message="form.errors.password" class="mt-2" />
                 </div>
 
                 <div class="mt-6 flex justify-end">
-                    <NordSecondaryButton @click="closeModal">Cancel</NordSecondaryButton>
+                    <SecondaryButton @click="closeModal">Cancel</SecondaryButton>
 
-                    <NordDangerButton
+                    <DangerButton
                         class="ml-3"
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
                         Delete Account
-                    </NordDangerButton>
+                    </DangerButton>
                 </div>
             </div>
-        </NordModal>
+        </Modal>
     </section>
 </template>
 
 <script>
-import { ref } from 'vue';
-import NordDangerButton from '@/Components/NordDangerButton.vue';
-import NordInputError from '@/Components/NordInputError.vue';
-import NordInputLabel from '@/Components/NordInputLabel.vue';
-import NordSecondaryButton from '@/Components/NordSecondaryButton.vue';
-import NordTextInput from '@/Components/NordTextInput.vue';
-import NordModal from '@/Components/NordModal.vue';
-import { useForm } from '@inertiajs/vue3';
+import DangerButton from '@/Components/DangerButton.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import Modal from '@/Components/Modal.vue';
 
 export default {
-    name: 'DeleteAccount',
+    name: 'DeleteUserForm',
     components: {
-        NordDangerButton,
-        NordInputError,
-        NordInputLabel,
-        NordSecondaryButton,
-        NordTextInput,
-        NordModal,
+        DangerButton,
+        InputError,
+        InputLabel,
+        SecondaryButton,
+        TextInput,
+        Modal,
     },
     data() {
         return {
@@ -92,7 +90,7 @@ export default {
                 }
             });
         },
-        async deleteUser() {
+        deleteUser() {
             this.form.delete(route('profile.destroy'), {
                 preserveScroll: true,
                 onSuccess: () => this.closeModal(),
@@ -111,4 +109,3 @@ export default {
     },
 };
 </script>
-

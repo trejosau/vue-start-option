@@ -10,9 +10,9 @@
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
             <!-- Current Password Field -->
             <div>
-                <NordInputLabel for="current_password" value="Current Password" />
+                <InputLabel for="current_password" value="Current Password" />
 
-                <NordTextInput
+                <TextInput
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
@@ -21,14 +21,14 @@
                     autocomplete="current-password"
                 />
 
-                <NordInputError :message="form.errors.current_password" class="mt-2" />
+                <InputError :message="form.errors.current_password" class="mt-2" />
             </div>
 
             <!-- New Password Field -->
             <div>
-                <NordInputLabel for="password" value="New Password" />
+                <InputLabel for="password" value="New Password" />
 
-                <NordTextInput
+                <TextInput
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
@@ -37,14 +37,14 @@
                     autocomplete="new-password"
                 />
 
-                <NordInputError :message="form.errors.password" class="mt-2" />
+                <InputError :message="form.errors.password" class="mt-2" />
             </div>
 
             <!-- Confirm Password Field -->
             <div>
-                <NordInputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="Confirm Password" />
 
-                <NordTextInput
+                <TextInput
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
@@ -52,12 +52,12 @@
                     autocomplete="new-password"
                 />
 
-                <NordInputError :message="form.errors.password_confirmation" class="mt-2" />
+                <InputError :message="form.errors.password_confirmation" class="mt-2" />
             </div>
 
             <!-- Actions -->
             <div class="flex items-center gap-4">
-                <NordPrimaryButton :disabled="form.processing">Save</NordPrimaryButton>
+                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
                 <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
                     <p v-if="form.recentlySuccessful" class="text-sm text-grayLight">Saved.</p>
@@ -68,20 +68,18 @@
 </template>
 
 <script>
-import { ref } from 'vue';
-import NordInputError from '@/Components/NordInputError.vue';
-import NordInputLabel from '@/Components/NordInputLabel.vue';
-import NordPrimaryButton from '@/Components/NordPrimaryButton.vue';
-import NordTextInput from '@/Components/NordTextInput.vue';
-import { useForm } from '@inertiajs/vue3';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
 
 export default {
     name: 'UpdatePassword',
     components: {
-        NordInputError,
-        NordInputLabel,
-        NordPrimaryButton,
-        NordTextInput,
+        InputError,
+        InputLabel,
+        PrimaryButton,
+        TextInput,
     },
     data() {
         return {
@@ -121,4 +119,3 @@ export default {
     },
 };
 </script>
-

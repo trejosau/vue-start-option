@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    name: 'NordCheckbox',
+    name: 'Checkbox',
     props: {
         checked: {
             type: [Array, Boolean],

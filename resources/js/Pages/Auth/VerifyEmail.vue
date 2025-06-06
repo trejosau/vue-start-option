@@ -13,18 +13,18 @@
 
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
-                <NordPrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Resend Verification Email
-                </NordPrimaryButton>
+                </PrimaryButton>
 
-                <NordNavLink
+                <NavLink
                     :href="route('logout')"
                     method="post"
                     as="button"
                     class="underline text-sm text-ice hover:text-teal rounded-md focus:outline-none focus:ring-2 focus:ring-ice focus:ring-offset-2"
                 >
                     Log Out
-                </NordNavLink>
+                </NavLink>
             </div>
         </form>
     </GuestLayout>
@@ -32,8 +32,8 @@
 
 <script>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import NordNavLink from '@/Components/NordNavLink.vue';
-import NordPrimaryButton from '@/Components/NordPrimaryButton.vue';
+import NavLink from '@/Components/NavLink.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head } from '@inertiajs/vue3';
 
 export default {
@@ -41,8 +41,8 @@ export default {
     components: {
         GuestLayout,
         Head,
-        NordNavLink,
-        NordPrimaryButton,
+        NavLink,
+        PrimaryButton,
     },
     props: {
         status: {
@@ -69,7 +69,7 @@ export default {
             try {
                 await this.$inertia.post(route('verification.send'));
             } catch (error) {
-                // Manejar errores si fuera necesario
+                // Handle errors if necessary
             } finally {
                 this.form.processing = false;
             }

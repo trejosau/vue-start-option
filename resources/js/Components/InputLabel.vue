@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: 'NordInputLabel',
+    name: 'InputLabel',
     props: {
         value: {
             type: String,

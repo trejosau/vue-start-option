@@ -11,8 +11,8 @@
 import { Link } from '@inertiajs/vue3';
 
 export default {
-    name: 'NordDropdownLink',
+    name: 'DropdownLink',
     components: { Link },
-    inheritAttrs: true, // Para que `href` u otros atributos pasen automáticamente al <Link>
+    inheritAttrs: true,
 };
 </script>

@@ -9,7 +9,7 @@ import { computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 
 export default {
-    name: 'NordResponsiveNavLink',
+    name: 'ResponsiveNavLink',
     components: { Link },
     props: {
         href: {

@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: 'NordInputError',
+    name: 'InputError',
     props: {
         message: {
             type: String,
