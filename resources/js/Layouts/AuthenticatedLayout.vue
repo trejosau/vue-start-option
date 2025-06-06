@@ -1,4 +1,3 @@
-<!-- resources/js/Layouts/AuthenticatedLayout.vue -->
 <template>
     <div class="min-h-screen bg-bg text-fg">
         <nav class="bg-grayDark border-b border-grayMedium">
@@ -20,6 +19,12 @@
                                 :active="route().current('dashboard')"
                             >
                                 Dashboard
+                            </NavLink>
+                            <NavLink
+                                :href="route('relojes')"
+                                :active="route().current('relojes')"
+                            >
+                                Relojes
                             </NavLink>
                         </div>
                     </div>
