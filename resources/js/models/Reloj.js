@@ -34,16 +34,12 @@ export default class Reloj {
         return `${hh}:${mm}:${ss}`
     }
 
-    anguloHoras() {
-        return (((this._horas % 12) + this._minutos / 60) * 30) - 90;
-    }
-
-    anguloMinutos() {
-        return (this._minutos * 6 + this._segundos * 0.1) - 90;
-    }
-
-    anguloSegundos() {
-        return (this._segundos * 6) - 90;
+    calcularAngulos() {
+        return {
+            rotacionHora: ((this._horas % 12) + this._minutos / 60) * 30,
+            rotacionMinuto: this._minutos * 6 + this._segundos * 0.1,
+            rotacionSegundo: this._segundos * 6
+        };
     }
 
     tick() {

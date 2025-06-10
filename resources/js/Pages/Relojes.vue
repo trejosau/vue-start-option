@@ -83,11 +83,11 @@
                 </div>
             </transition>
 
-            <!-- MODAL de hora digital y botones -->
             <RelojHoraModal
                 v-if="viewModel.state.modalAbierto"
                 :reloj="viewModel.state.relojModal"
                 @close="viewModel.cerrarModal"
+                @modificar-tiempo="viewModel.agregarSegundosModal"
             />
         </div>
     </AuthenticatedLayout>

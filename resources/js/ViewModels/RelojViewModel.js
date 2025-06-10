@@ -34,8 +34,10 @@ export default class RelojViewModel {
     }
 
     abrirModal(reloj) {
-        this.state.relojModal = reloj
-        this.state.modalAbierto = true
+        if (reloj) {
+            this.state.relojModal = reloj
+            this.state.modalAbierto = true
+        }
     }
 
     cerrarModal() {
@@ -55,6 +57,18 @@ export default class RelojViewModel {
     cerrarEditor() {
         this.state.editorAbierto = false
         this.state.relojAEditar = null
+    }
+
+
+    agregarSegundosAReloj(reloj, segundos) {
+        if (!reloj || !reloj.agregarSegundos) return
+        reloj.agregarSegundos(segundos)
+    }
+
+    agregarSegundosModal(segundos) {
+        if (this.state.relojModal) {
+            this.agregarSegundosAReloj(this.state.relojModal, segundos)
+        }
     }
 
     destruir() {

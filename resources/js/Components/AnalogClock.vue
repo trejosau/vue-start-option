@@ -49,6 +49,11 @@
 export default {
     name: 'AnalogClock',
     props: { reloj: Object },
+    computed: {
+        angulos() {
+            return this.reloj.calcularAngulos();
+        }
+    },
     methods: {
         coord(num, r, fontSize) {
             const angle = (num * 30 - 90) * Math.PI / 180;
@@ -64,9 +69,9 @@ export default {
         },
         hand(tipo) {
             const config = {
-                hora: { deg: this.reloj.anguloHoras(), l: 46, w: 8, c: this.reloj.colorHora,    z: 9 },
-                min:  { deg: this.reloj.anguloMinutos(), l: 72, w: 4, c: this.reloj.colorMinuto,  z:10 },
-                sec:  { deg: this.reloj.anguloSegundos(), l: 82, w: 2, c: this.reloj.colorSegundo, z:11 }
+                hora: { deg: this.angulos.rotacionHora - 90, l: 46, w: 8, c: this.reloj.colorHora,    z: 9 },
+                min:  { deg: this.angulos.rotacionMinuto - 90, l: 72, w: 4, c: this.reloj.colorMinuto,  z:10 },
+                sec:  { deg: this.angulos.rotacionSegundo - 90, l: 82, w: 2, c: this.reloj.colorSegundo, z:11 }
             };
             const h = config[tipo];
             return {
@@ -79,7 +84,6 @@ export default {
                 borderRadius: (h.w/1) + 'px',
                 transformOrigin: `${h.w/2}px 50%`,
                 transform: `rotate(${h.deg}deg) translateY(-50%)`,
-                transition: 'all 0.13s linear',
                 zIndex: h.z
             }
         }
