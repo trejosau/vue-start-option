@@ -5,9 +5,14 @@
                     class="absolute top-2 right-2 text-[#BF616A] hover:scale-110 text-2xl font-bold rounded-full"
                     aria-label="Cerrar"
             >&times;</button>
-            <div class="font-mono text-3xl text-[#88C0D0] mb-6 select-none">
+
+            <div
+                class="font-mono text-3xl mb-6 select-none"
+                :style="{ color: reloj?.colorHoraDigital }"
+            >
                 {{ reloj?.horaDigital }}
             </div>
+
             <div class="flex gap-8">
                 <button
                     @mousedown="startHold('menos')"

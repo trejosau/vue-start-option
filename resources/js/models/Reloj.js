@@ -10,7 +10,8 @@ export default class Reloj {
                     colorNumeros = '#88C0D0',
                     colorPuntos = '#81A1C1',
                     colorFondo = '#2E3440',
-                    colorBorde = '#4C566A'
+                    colorBorde = '#4C566A',
+                    colorHoraDigital = '#88C0D0'
                 } = {}) {
         this.nombre = nombre
         this._horas = Number(horas)
@@ -23,22 +24,28 @@ export default class Reloj {
         this.colorPuntos = colorPuntos
         this.colorFondo = colorFondo
         this.colorBorde = colorBorde
+        this.colorHoraDigital = colorHoraDigital
     }
+
     get horaDigital() {
         const hh = String(this._horas).padStart(2, '0')
         const mm = String(this._minutos).padStart(2, '0')
         const ss = String(this._segundos).padStart(2, '0')
         return `${hh}:${mm}:${ss}`
     }
+
     anguloHoras() {
         return (((this._horas % 12) + this._minutos / 60) * 30) - 90;
     }
+
     anguloMinutos() {
         return (this._minutos * 6 + this._segundos * 0.1) - 90;
     }
+
     anguloSegundos() {
         return (this._segundos * 6) - 90;
     }
+
     tick() {
         this._segundos++;
         if (this._segundos >= 60) {
@@ -66,12 +73,11 @@ export default class Reloj {
     setColor(prop, valor) {
         const validProps = [
             'colorHora', 'colorMinuto', 'colorSegundo',
-            'colorNumeros', 'colorPuntos', 'colorFondo', 'colorBorde'
+            'colorNumeros', 'colorPuntos', 'colorFondo',
+            'colorBorde', 'colorHoraDigital'
         ];
         if (validProps.includes(prop)) {
             this[prop] = valor;
         }
     }
-
-
 }

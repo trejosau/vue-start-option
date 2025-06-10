@@ -8,13 +8,13 @@
             <!-- Grid de relojes -->
             <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-4">
                 <div
-                    v-for="(reloj, idx) in relojes"
+                    v-for="(reloj, idx) in viewModel.relojes"
                     :key="idx"
                     class="w-full max-w-sm bg-grayDark rounded-xl pt-4 pb-4 px-4 flex flex-col items-center shadow-lg mx-auto relative"
                 >
                     <!-- Botón ojo, arriba derecha -->
                     <button
-                        @click="abrirModal(reloj)"
+                        @click="viewModel.abrirModal(reloj)"
                         class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-[#3B4252] hover:bg-[#4C566A] transition shadow"
                         title="Ver"
                         style="z-index: 5"
@@ -29,13 +29,18 @@
                     <div class="flex flex-col items-center w-full">
                         <AnalogClock :reloj="reloj" />
                         <div class="mt-3 font-bold text-lg text-center break-words">{{ reloj.nombre }}</div>
-                        <div class="text-ice text-sm font-mono text-center">{{ reloj.horaDigital }}</div>
+                        <div
+                            class="text-sm font-mono text-center"
+                            :style="{ color: reloj.colorHoraDigital }"
+                        >
+                            {{ reloj.horaDigital }}
+                        </div>
                     </div>
 
-                    <!-- Botón pincel y dropdown (envoltorio relative para el popper) -->
+                    <!-- Botón pincel y dropdown -->
                     <div class="relative w-full flex flex-col items-center">
                         <button
-                            @click="abrirEditor(reloj)"
+                            @click="viewModel.abrirEditor(reloj)"
                             class="mt-6 w-12 h-12 flex items-center justify-center rounded-full bg-[#3B4252] hover:bg-[#4C566A] transition shadow"
                             title="Editar colores"
                             style="z-index: 5"
@@ -44,35 +49,34 @@
                                 <path d="M12 19v2m6.5-11.5l-1 1M4 15l8.5-8.5a2.121 2.121 0 0 1 3 3L7 18H4v-3z" />
                             </svg>
                         </button>
-                        <!-- Dropdown de edición, flotando justo debajo del botón -->
+
                         <transition name="fade">
                             <div
-                                v-if="editorAbierto && relojAEditar === reloj"
+                                v-if="viewModel.state.editorAbierto && viewModel.state.relojAEditar === reloj"
                                 class="absolute left-1/2 top-full mt-2 -translate-x-1/2 z-50"
                                 style="min-width: 270px;"
                             >
-                                <RelojColorEditor :reloj="reloj" @close="cerrarEditor" />
+                                <RelojColorEditor :reloj="reloj" @close="viewModel.cerrarEditor" />
                             </div>
                         </transition>
                     </div>
                 </div>
-
             </div>
 
             <!-- Botón flotante para agregar reloj -->
             <button
                 class="fixed z-50 bottom-6 left-1/2 -translate-x-1/2 bg-[#88C0D0] text-[#2E3440] rounded-full shadow-lg w-16 h-16 flex items-center justify-center text-4xl transition-transform duration-300 border-2 border-bg"
-                :class="{ 'scale-110': showForm }"
-                @click="toggleForm"
+                :class="{ 'scale-110': viewModel.state.showForm }"
+                @click="viewModel.toggleForm"
             >
-                <span v-if="!showForm">+</span>
+                <span v-if="!viewModel.state.showForm">+</span>
                 <span v-else class="text-2xl">×</span>
             </button>
 
             <!-- Formulario flotante para agregar reloj -->
             <transition name="fade">
                 <div
-                    v-if="showForm"
+                    v-if="viewModel.state.showForm"
                     class="fixed z-50 bottom-24 left-1/2 -translate-x-1/2"
                 >
                     <RelojForm @add-reloj="agregarReloj"/>
@@ -81,9 +85,9 @@
 
             <!-- MODAL de hora digital y botones -->
             <RelojHoraModal
-                v-if="modalAbierto"
-                :reloj="relojModal"
-                @close="cerrarModal"
+                v-if="viewModel.state.modalAbierto"
+                :reloj="viewModel.state.relojModal"
+                @close="viewModel.cerrarModal"
             />
         </div>
     </AuthenticatedLayout>
@@ -95,6 +99,7 @@ import AnalogClock from '@/Components/AnalogClock.vue'
 import RelojHoraModal from '@/Components/RelojHoraModal.vue'
 import RelojColorEditor from '@/Components/RelojColorEditor.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import RelojViewModel from '@/viewmodels/RelojViewModel.js'
 
 export default {
     name: 'Relojes',
@@ -107,50 +112,20 @@ export default {
     },
     data() {
         return {
-            relojes: [],
-            showForm: false,
-            modalAbierto: false,
-            relojModal: null,
-            editorAbierto: false,
-            relojAEditar: null
+            viewModel: new RelojViewModel()
         }
     },
     methods: {
-        toggleForm() { this.showForm = !this.showForm },
         agregarReloj(reloj) {
-            this.relojes.push(reloj)
-            this.showForm = false
-        },
-        abrirModal(reloj) {
-            this.relojModal = reloj
-            this.modalAbierto = true
-        },
-        cerrarModal() {
-            this.modalAbierto = false
-            this.relojModal = null
-        },
-        abrirEditor(reloj) {
-            if (this.editorAbierto && this.relojAEditar === reloj) {
-                this.editorAbierto = false
-                this.relojAEditar = null
-            } else {
-                this.editorAbierto = true
-                this.relojAEditar = reloj
-            }
-        },
-        cerrarEditor() {
-            this.editorAbierto = false
-            this.relojAEditar = null
+            this.viewModel.agregarReloj(reloj)
+            this.viewModel.state.showForm = false
         }
     },
     mounted() {
-        this.interval = setInterval(() => {
-            this.relojes.forEach(r => r.tick())
-        }, 1000)
+        this.viewModel.iniciarTick()
     },
     beforeUnmount() {
-        clearInterval(this.interval)
+        this.viewModel.destruir()
     }
 }
 </script>
-
